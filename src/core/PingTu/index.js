@@ -77,8 +77,8 @@ export default class PingTu {
     }
 
     refresh() {
-        const blocks = this.blocks.slice()
-        // const blocks = this.blocks.slice(0, -1).sort(() => Math.random() > 0.5 ? 1 : -1)
+        // const blocks = this.blocks.slice()
+        const blocks = this.blocks.slice(0, -1).sort(() => Math.random() > 0.5 ? 1 : -1)
         const matrix = []
         for (let i = 0; i < this.row; i++) {
             const rows = []
