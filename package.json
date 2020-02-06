@@ -8,7 +8,7 @@
         "stylelint": "stylelint 'src/**/*.{vue,scss,html}' --fix",
         "hot": "webpack-dev-server --env.local --env.hot",
         "pro": "webpack --env.pro",
-        "gh": "node build/gh.js"
+        "gh": "yarn pro && node build/gh.js"
     },
     "devDependencies": {
         "@babel/core": "^7.4.3",

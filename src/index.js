@@ -24,6 +24,12 @@ img.onload = function() {
         width: 160px;
         border: 4px solid #fff;
     `
+    const btnsStyle = `
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 160px;
+    `
     const btnStyle = `
         box-sizing: border-box;
         display: flex;
@@ -33,24 +39,16 @@ img.onload = function() {
         height: 36px;
         font-size: 16px;
         color: #fff;
-        background: #6aae78;
+        background: #E6A153;
         border: 2px solid #fff;
         border-radius: 18px;
-    `
-    const btnsStyle = `
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 160px;
     `
     const preview = `
         <div class="wrap">
             <div style="${previewStyle}">
                 <img style="${imgStyle}" src=${imgBg}>
                 <div style="${btnsStyle}">
-                    <span class="btnImg" style="${btnStyle}">更换图片</span>
-                    <span class="btnLevel" style="${btnStyle}">选择难度</span>
-                    <span class="btnReset" style="${btnStyle} background: #E6A153;">重新开始</span>
+                    <span class="btnReset" style="${btnStyle}">重新开始</span>
                 </div>
             </div>
         </div>
@@ -59,13 +57,13 @@ img.onload = function() {
 
     $app.querySelector('.wrap').appendChild(pingTu.$el)
 
-    $app.querySelector('.btnImg').addEventListener(click, () => {
-        alert('研发中，敬请期待')
-    })
+    // $app.querySelector('.btnImg').addEventListener(click, () => {
+    //     alert('研发中，敬请期待')
+    // })
 
-    $app.querySelector('.btnLevel').addEventListener(click, () => {
-        alert('研发中，敬请期待')
-    })
+    // $app.querySelector('.btnLevel').addEventListener(click, () => {
+    //     alert('研发中，敬请期待')
+    // })
 
     $app.querySelector('.btnReset').addEventListener(click, () => {
         pingTu.refresh()
