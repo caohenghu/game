@@ -10,7 +10,7 @@ export default class PingTu {
         this.height = height
         this.row = row
         this.col = col
-        this.div = document.createElement('div')
+        this.$el = document.createElement('div')
         this.blocks = []
 
         this.render()
@@ -18,9 +18,11 @@ export default class PingTu {
     }
 
     render() {
-        Object.assign(this.div.style, {
+        Object.assign(this.$el.style, {
             position: 'relative',
-            background: '#fff'
+            marginTop: '30px',
+            background: '#756780',
+            border: '3px solid #fff'
         })
         this.renderBlocks()
         this.renderBoard()
@@ -30,11 +32,11 @@ export default class PingTu {
         const { width, height, row, col } = this
         const options = { width, height, row, col }
         const board = new Board(options)
-        this.div.appendChild(board.canvas)
+        this.$el.appendChild(board.$el)
     }
 
     renderBlocks() {
-        const { width, height, row, col, img, blocks, div } = this
+        const { width, height, row, col, img, blocks, $el } = this
         const blockWidth = width / col
         const blockHeight = height / row
         const imgWidth = img.width / col
@@ -56,7 +58,7 @@ export default class PingTu {
                 }
                 const block = new BlockNormal(options)
                 blocks.push(block)
-                div.appendChild(block.canvas)
+                $el.appendChild(block.$el)
             }
         }
         blocks.push(new BlockNull())

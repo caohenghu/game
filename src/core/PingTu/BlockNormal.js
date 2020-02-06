@@ -14,22 +14,23 @@ export default class BlockNormal extends BlockBase {
         this.width = width
         this.height = height
         this.parent = parent
-        this.canvas = document.createElement('canvas')
+        this.$el = document.createElement('canvas')
         this.render()
         this.bindEvent()
     }
 
     render() {
-        const { canvas, img, sourcePos, imgWidth, imgHeight, width, height } = this
-        const ctx = canvas.getContext('2d')
-        canvas.width = width
-        canvas.height = height
+        const { $el, img, sourcePos, imgWidth, imgHeight, width, height } = this
+        const ctx = $el.getContext('2d')
+        $el.className = 'block'
+        $el.width = width
+        $el.height = height
         ctx.drawImage(img, sourcePos[0] * imgWidth, sourcePos[1] * imgHeight, imgWidth, imgHeight, 0, 0, width, height)
     }
 
     setPos(x, y) {
         this.nowPos = [x, y]
-        Object.assign(this.canvas.style, {
+        Object.assign(this.$el.style, {
             position: 'absolute',
             left: this.nowPos[0] * this.width + 'px',
             top: this.nowPos[1] * this.height + 'px'
@@ -37,12 +38,12 @@ export default class BlockNormal extends BlockBase {
     }
 
     bindEvent() {
-        const { canvas } = this
-        canvas.addEventListener(event.mousedown, e1 => {
+        const { $el } = this
+        $el.addEventListener(event.mousedown, e1 => {
             e1.preventDefault()
 
-            const offsetX = canvas.offsetLeft
-            const offsetY = canvas.offsetTop
+            const offsetX = $el.offsetLeft
+            const offsetY = $el.offsetTop
             const pageX = e1.pageX || e1.touches[0].pageX
             const pageY = e1.pageY || e1.touches[0].pageY
             const startX = pageX
@@ -66,7 +67,7 @@ export default class BlockNormal extends BlockBase {
                     top = offsetY + Math.min(distanceY, this.height)
                 }
 
-                Object.assign(canvas.style, {
+                Object.assign($el.style, {
                     left: left + 'px',
                     top: top + 'px'
                 })
@@ -93,23 +94,13 @@ export default class BlockNormal extends BlockBase {
                     this.setAllArrow('bottom')
                 }
 
+                Object.assign($el.style, {
+                    left: left + 'px',
+                    top: top + 'px'
+                })
+
                 if (left !== offsetX || top !== offsetY) {
-                    Object.assign(canvas.style, {
-                        transition: 'all 0.1s',
-                        left: left + 'px',
-                        top: top + 'px'
-                    })
-
                     this.parent.isSuccess()
-
-                    const transitionend = () => {
-                        Object.assign(canvas.style, {
-                            transition: ''
-                        })
-                        canvas.removeEventListener('transitionend', transitionend)
-                    }
-
-                    canvas.addEventListener('transitionend', transitionend)
                 }
 
                 document.removeEventListener(event.mousemove, mousemove)

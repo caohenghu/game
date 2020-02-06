@@ -4,49 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>拼图</title>
+    <title>拼图游戏</title>
     <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        -webkit-tap-highlight-color: transparent;
+    html,
+    body,
+    .app {
+        height: 100%;
     }
 
     body {
-        background: #eee;
+        margin: 0;
     }
 
     .app {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-    }
-
-    .btn {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100px;
-        height: 30px;
-        font-size: 14px;
-        color: green;
-        border: 1px solid green;
-        border-radius: 30px;
+        background: #b2d38c;
     }
 
-    img {
-        width: 200px;
-        margin: 20px 0;
-    }
-
-    canvas {
-        vertical-align: top;
+    .loading {
+        position: absolute;
+        top: 50%;
+        color: #fff;
+        transform: translateY(-50%);
     }
     </style>
 </head>
 <body>
+    <img style="position: absolute; width: 0;" src="<%= require('./images/bg.jpg') %>">
     <div class="app">
+        <span class="loading">加载中，请稍等…</span>
     </div>
 </body>
 </html>
