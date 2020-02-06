@@ -1,5 +1,4 @@
 import PingTu from './core/PingTu'
-import imgBg from 'src/images/bg.jpg'
 import { click } from 'src/utils/event'
 import { isIOS } from 'src/utils/ua'
 
@@ -46,7 +45,7 @@ img.onload = function() {
     const preview = `
         <div class="wrap">
             <div style="${previewStyle}">
-                <img style="${imgStyle}" src=${imgBg}>
+                <img style="${imgStyle}" src=${this.src}>
                 <div style="${btnsStyle}">
                     <span class="btnReset" style="${btnStyle}">重新开始</span>
                 </div>
@@ -74,4 +73,4 @@ img.onload = function() {
         $app.addEventListener('touchstart', e => e.preventDefault())
     }
 }
-img.src = imgBg
+img.src = 'https://i.loli.net/2020/02/06/AC4znORfSHvxjFM.jpg'
