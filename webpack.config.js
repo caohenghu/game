@@ -3,9 +3,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const path = require('path')
 
 module.exports = options => {
+    const host = '192.168.1.41'
     const port = 33333
     const buildDir = 'dist'
     const isLocal = options.local
@@ -27,8 +29,14 @@ module.exports = options => {
             use: 'babel-loader'
         },
         {
+            test: /\.html$/,
+            exclude: /node_modules/,
+            use: 'html-loader'
+        },
+        {
             test: /\.scss$/,
             use: [
+                'style-loader',
                 'css-loader',
                 'postcss-loader',
                 'sass-loader'
@@ -51,15 +59,19 @@ module.exports = options => {
     const plugins = [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './src/index.ejs',
             filename: 'index.html',
+            alwaysWriteToDisk: true,
             minify
         })
     ]
 
     if (options.hot) {
         plugins.push(
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new HtmlWebpackHarddiskPlugin({
+                outputPath: path.resolve(__dirname, buildDir)
+            })
         )
     }
 
@@ -79,6 +91,7 @@ module.exports = options => {
             app: './src'
         },
         output: {
+            publicPath: isLocal ? `http://${host}:${port}` : '',
             path: path.resolve(__dirname, buildDir),
             filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].min.js',
             chunkFilename: isLocal
@@ -96,9 +109,10 @@ module.exports = options => {
         },
         devtool: options.pro ? false : 'source-map',
         devServer: {
-            hot: true,
+            hot: options.hot,
             contentBase: path.join(__dirname, buildDir),
-            host: '192.168.1.41',
+            publicPath: `http://${host}:${port}`,
+            host,
             port,
             headers: {
                 'Access-Control-Allow-Origin': '*'

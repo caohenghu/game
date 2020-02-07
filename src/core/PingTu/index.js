@@ -12,27 +12,29 @@ export default class PingTu {
         this.col = col
         this.$el = document.createElement('div')
         this.blocks = []
+        this.board = null
 
         this.render()
-        this.refresh()
+        this.renderBoard()
+        this.renderBlocks()
+        this.resetBlocks()
     }
 
     render() {
         Object.assign(this.$el.style, {
             position: 'relative',
+            width: this.width + 'px',
             marginTop: '30px',
             background: '#756780',
             border: '3px solid #fff'
         })
-        this.renderBlocks()
-        this.renderBoard()
     }
 
     renderBoard() {
         const { width, height, row, col } = this
         const options = { width, height, row, col }
-        const board = new Board(options)
-        this.$el.appendChild(board.$el)
+        this.board = new Board(options)
+        this.$el.appendChild(this.board.$el)
     }
 
     renderBlocks() {
@@ -78,7 +80,7 @@ export default class PingTu {
         }
     }
 
-    refresh() {
+    resetBlocks() {
         // const blocks = this.blocks.slice()
         const blocks = this.blocks.slice(0, -1).sort(() => Math.random() > 0.5 ? 1 : -1)
         const matrix = []
@@ -108,5 +110,53 @@ export default class PingTu {
                 block.setArrow(arrow)
             })
         })
+    }
+
+    setSize() {
+        const ratio = this.img.width / this.img.height
+        let width = 300
+        let height = 300
+        if (ratio > 1) {
+            height = width / ratio
+        } else {
+            width = height * ratio
+        }
+        this.width = width
+        this.height = height
+    }
+
+    changeImage(img) {
+        this.img = img
+        this.setSize()
+        this.render()
+        this.clearBlocks()
+        this.renderBlocks()
+        this.resetBlocks()
+        this.clearBoard()
+        this.renderBoard()
+    }
+
+    changeLevel(row, col) {
+        this.row = row
+        this.col = col
+        this.clearBlocks()
+        this.renderBlocks()
+        this.resetBlocks()
+        this.clearBoard()
+        this.renderBoard()
+    }
+
+    clearBlocks() {
+        this.blocks.forEach(block => {
+            if (block instanceof BlockNormal) {
+                this.$el.removeChild(block.$el)
+            }
+        })
+        this.blocks = []
+    }
+
+    clearBoard() {
+        this.$el.removeChild(this.board.$el)
+        this.board = null
     }
 }

@@ -37,5 +37,9 @@
     <div class="app">
         <span class="loading">正在加载…</span>
     </div>
+    <script>
+        // 阻止ios下拉回弹效果
+        document.querySelector('.app').addEventListener('touchstart', e => e.preventDefault())
+    </script>
 </body>
 </html>

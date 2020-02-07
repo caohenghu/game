@@ -18,6 +18,7 @@ export default class Board {
         Object.assign($el.style, {
             position: 'relative',
             display: 'table',
+            zIndex: 1,
             pointerEvents: 'none'
         })
 
