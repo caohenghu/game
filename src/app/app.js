@@ -8,8 +8,7 @@ const $app = document.querySelector('.app')
 const levelObj = {
     3: '一级难度',
     4: '二级难度',
-    5: '三级难度',
-    6: '四级难度'
+    5: '三级难度'
 }
 let level = 3
 
@@ -76,7 +75,7 @@ function changeImage(file, pingTu, $preview) {
 }
 
 function changeLevel(pingTu, $btnLevel) {
-    if (++level > 6) {
+    if (++level > 5) {
         level = 3
     }
     pingTu.changeLevel(level, level)

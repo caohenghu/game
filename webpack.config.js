@@ -91,7 +91,7 @@ module.exports = options => {
             app: './src'
         },
         output: {
-            publicPath: isLocal ? `http://${host}:${port}` : '',
+            publicPath: options.hot ? `http://${host}:${port}` : '',
             path: path.resolve(__dirname, buildDir),
             filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].min.js',
             chunkFilename: isLocal

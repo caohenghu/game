@@ -33,9 +33,18 @@ export default class Board {
                     display: 'table-cell',
                     width: tdWidth + 'px',
                     height: tdHeight + 'px',
-                    border: '1px solid #fff',
                     boxSizing: 'border-box'
                 })
+                if (j !== 0) {
+                    Object.assign($td.style, {
+                        borderLeft: '1px solid #fff'
+                    })
+                }
+                if (i !== 0) {
+                    Object.assign($td.style, {
+                        borderTop: '1px solid #fff'
+                    })
+                }
                 $tr.appendChild($td)
             }
             $el.appendChild($tr)

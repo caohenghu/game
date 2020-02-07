@@ -15,18 +15,19 @@ export default class PingTu {
         this.board = null
 
         this.render()
-        this.renderBoard()
         this.renderBlocks()
         this.resetBlocks()
+        this.renderBoard()
     }
 
     render() {
         Object.assign(this.$el.style, {
             position: 'relative',
             width: this.width + 'px',
+            height: this.height + 'px',
             marginTop: '30px',
             background: '#756780',
-            border: '3px solid #fff'
+            border: '4px solid #fff'
         })
     }
 
@@ -156,7 +157,7 @@ export default class PingTu {
     }
 
     clearBoard() {
-        this.$el.removeChild(this.board.$el)
+        this.board && this.$el.removeChild(this.board.$el)
         this.board = null
     }
 }
