@@ -31,7 +31,14 @@ module.exports = options => {
         {
             test: /\.html$/,
             exclude: /node_modules/,
-            use: 'html-loader'
+            use: [
+                {
+                    loader: 'html-loader',
+                    options: Object.assign({
+                        minimize: true
+                    }, minify)
+                }
+            ]
         },
         {
             test: /\.scss$/,
@@ -91,7 +98,7 @@ module.exports = options => {
             app: './src'
         },
         output: {
-            publicPath: options.hot ? `http://${host}:${port}` : '',
+            publicPath: options.hot ? `http://${host}:${port}/` : '',
             path: path.resolve(__dirname, buildDir),
             filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].min.js',
             chunkFilename: isLocal
@@ -111,7 +118,7 @@ module.exports = options => {
         devServer: {
             hot: options.hot,
             contentBase: path.join(__dirname, buildDir),
-            publicPath: `http://${host}:${port}`,
+            publicPath: `http://${host}:${port}/`,
             host,
             port,
             headers: {
