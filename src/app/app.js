@@ -3,13 +3,18 @@ import { click } from 'src/utils/event'
 import './app.scss'
 import html from './app.html'
 
-const src = 'https://i.loli.net/2020/02/06/AC4znORfSHvxjFM.jpg'
+const src = 'https://i.loli.net/2020/02/08/8xtsWhDvRqUK57Y.jpg'
 const $app = document.querySelector('.app')
 const levelObj = {
     3: '一级难度',
     4: '二级难度',
     5: '三级难度'
+    // 6: '四级难度',
+    // 7: '五级难度',
+    // 8: '六级难度',
+    // 9: '七级难度'
 }
+const levels = Object.keys(levelObj)
 let level = 3
 
 const img = new Image()
@@ -75,8 +80,8 @@ function changeImage(file, pingTu, $preview) {
 }
 
 function changeLevel(pingTu, $btnLevel) {
-    if (++level > 5) {
-        level = 3
+    if (++level > Math.max(...levels)) {
+        level = Math.min(...levels)
     }
     pingTu.changeLevel(level, level)
     $btnLevel.innerText = levelObj[level]
