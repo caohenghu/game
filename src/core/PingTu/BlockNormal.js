@@ -23,9 +23,9 @@ export default class BlockNormal extends BlockBase {
         const { $el, img, sourcePos, imgWidth, imgHeight, width, height } = this
         const ctx = $el.getContext('2d')
         $el.className = 'block'
-        $el.width = width
-        $el.height = height
-        ctx.drawImage(img, sourcePos[0] * imgWidth, sourcePos[1] * imgHeight, imgWidth, imgHeight, 0, 0, width, height)
+        $el.width = width * devicePixelRatio
+        $el.height = height * devicePixelRatio
+        ctx.drawImage(img, sourcePos[0] * imgWidth, sourcePos[1] * imgHeight, imgWidth, imgHeight, 0, 0, $el.width, $el.height)
     }
 
     setPos(x, y) {
@@ -33,7 +33,9 @@ export default class BlockNormal extends BlockBase {
         Object.assign(this.$el.style, {
             position: 'absolute',
             left: this.nowPos[0] * this.width + 'px',
-            top: this.nowPos[1] * this.height + 'px'
+            top: this.nowPos[1] * this.height + 'px',
+            width: this.width + 'px',
+            height: this.height + 'px'
         })
     }
 
